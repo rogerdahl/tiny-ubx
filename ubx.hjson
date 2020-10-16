@@ -1,0 +1,1259 @@
+{
+  ACK-ACK:
+  {
+    clsID: 5
+    msgID: 1
+    fields:
+    [
+      {
+        format: U1
+        name: clsID
+      }
+      {
+        format: U1
+        name: msgID
+      }
+    ]
+  }
+  ACK-NAK:
+  {
+    clsID: 5
+    msgID: 0
+    fields:
+    [
+      {
+        format: U1
+        name: clsID
+      }
+      {
+        format: U1
+        name: msgID
+      }
+    ]
+  }
+  NAV-SVINFO:
+  {
+    clsID: 1
+    msgID: 48
+    fields:
+    [
+      {
+        format: U4
+        name: iTOW
+      }
+      {
+        format: U1
+        name: numCh
+      }
+      {
+        format: X1
+        name: globalFlags
+        bitfield:
+        [
+          {
+            name: chipGen
+            range:
+            [
+              2
+              0
+            ]
+            map:
+            {
+              0: Antaris 4
+              1: u-blox 5
+              2: u-blox 6
+              3: u-blox 7
+              4: u-blox 8 / M8
+            }
+          }
+        ]
+      }
+      {
+        format: U1[2]
+        name: reserved1
+      }
+      {
+        format: U1[348]
+        name: UNIMPLEMENTED
+      }
+    ]
+  }
+  CFG-RATE:
+  {
+    clsID: 6
+    msgID: 8
+    fields:
+    [
+      {
+        format: U2
+        name: measRate
+      }
+      {
+        format: U2
+        name: navRate
+      }
+      {
+        format: U2
+        name: timeRef
+      }
+    ]
+  }
+  CFG-MSG:
+  {
+    clsID: 6
+    msgID: 1
+    fields:
+    [
+      {
+        format: U1
+        name: cls_id
+      }
+      {
+        format: U1
+        name: msgID
+      }
+      {
+        format: U1[6]
+        name: rate
+      }
+    ]
+  }
+  CFG-CFG:
+  {
+    clsID: 6
+    msgID: 9
+    fields:
+    [
+      {
+        format: X4
+        name: clearMask
+        bitfield:
+        [
+          {
+            name: ioPort
+            range: 0
+          }
+          {
+            name: msgConf
+            range: 1
+          }
+          {
+            name: infMsg
+            range: 2
+          }
+          {
+            name: navConf
+            range: 3
+          }
+          {
+            name: rxmConf
+            range: 4
+          }
+          {
+            name: senConf
+            range: 8
+          }
+          {
+            name: rinvConf
+            range: 9
+          }
+          {
+            name: antConf
+            range: 10
+          }
+          {
+            name: logConf
+            range: 11
+          }
+          {
+            name: ftsConf
+            range: 12
+          }
+        ]
+      }
+      {
+        format: X4
+        name: saveMask
+        bitfield:
+        [
+          {
+            name: ioPort
+            range: 0
+          }
+          {
+            name: msgConf
+            range: 1
+          }
+          {
+            name: infMsg
+            range: 2
+          }
+          {
+            name: navConf
+            range: 3
+          }
+          {
+            name: rxmConf
+            range: 4
+          }
+          {
+            name: senConf
+            range: 8
+          }
+          {
+            name: rinvConf
+            range: 9
+          }
+          {
+            name: antConf
+            range: 10
+          }
+          {
+            name: logConf
+            range: 11
+          }
+          {
+            name: ftsConf
+            range: 12
+          }
+        ]
+      }
+      {
+        format: X4
+        name: loadMask
+        bitfield:
+        [
+          {
+            name: ioPort
+            range: 0
+          }
+          {
+            name: msgConf
+            range: 1
+          }
+          {
+            name: infMsg
+            range: 2
+          }
+          {
+            name: navConf
+            range: 3
+          }
+          {
+            name: rxmConf
+            range: 4
+          }
+          {
+            name: senConf
+            range: 8
+          }
+          {
+            name: rinvConf
+            range: 9
+          }
+          {
+            name: antConf
+            range: 10
+          }
+          {
+            name: logConf
+            range: 11
+          }
+          {
+            name: ftsConf
+            range: 12
+          }
+        ]
+      }
+      {
+        format: X1
+        name: deviceMask
+        bitfield:
+        [
+          {
+            name: deviceDevBbr
+            range: 0
+          }
+          {
+            name: deviceDevFlash
+            range: 1
+          }
+          {
+            name: deviceDevEeprom
+            range: 2
+          }
+          {
+            name: deviceDeviceSpiFlash
+            range: 4
+          }
+        ]
+      }
+    ]
+  }
+  CFG-RST:
+  {
+    clsID: 6
+    msgID: 4
+    fields:
+    [
+      {
+        format: X2
+        name: navBbrMask
+        bitfield:
+        [
+          {
+            name: eph
+            range: 0
+            map:
+            {
+              0: ""
+              1: Ephemeris
+            }
+          }
+          {
+            name: alm
+            range: 1
+            map:
+            {
+              0: ""
+              1: Almanac
+            }
+          }
+          {
+            name: health
+            range: 2
+            map:
+            {
+              0: ""
+              1: Health
+            }
+          }
+          {
+            name: klob
+            range: 3
+            map:
+            {
+              0: ""
+              1: Klobuchar parameters
+            }
+          }
+          {
+            name: pos
+            range: 4
+            map:
+            {
+              0: ""
+              1: Position
+            }
+          }
+          {
+            name: clkd
+            range: 5
+            map:
+            {
+              0: ""
+              1: Clock drift
+            }
+          }
+          {
+            name: osc
+            range: 6
+            map:
+            {
+              0: ""
+              1: Oscillator parameter
+            }
+          }
+          {
+            name: utc
+            range: 7
+            map:
+            {
+              0: ""
+              1: UTC correction + GPS leap seconds parameters
+            }
+          }
+          {
+            name: rtc
+            range: 8
+            map:
+            {
+              0: ""
+              1: RTC
+            }
+          }
+          {
+            name: aop
+            range: 15
+            map:
+            {
+              0: ""
+              1: Autonomous orbit parameters
+            }
+          }
+        ]
+      }
+      {
+        format: U1
+        name: resetMode
+      }
+      {
+        format: U1
+        name: reserved1
+      }
+    ]
+    skip_response: true
+  }
+  CFG-NMEA:
+  {
+    clsID: 6
+    msgID: 23
+    fields:
+    [
+      {
+        format: X1
+        name: filter
+        bitfield:
+        [
+          {
+            name: posFilt
+            range: 0
+          }
+          {
+            name: mskPosFilt
+            range: 1
+          }
+          {
+            name: timeFilt
+            range: 2
+          }
+          {
+            name: dateFilt
+            range: 3
+          }
+          {
+            name: gpsOnlyFilter
+            range: 4
+          }
+          {
+            name: trackFilt
+            range: 5
+          }
+        ]
+      }
+      {
+        format: U1
+        name: nmeaVersion
+      }
+      {
+        format: U1
+        name: numSV
+      }
+      {
+        format: X1
+        name: flags
+        bitfield:
+        [
+          {
+            name: compat
+            range: 0
+          }
+          {
+            name: consider
+            range: 1
+          }
+        ]
+      }
+    ]
+  }
+  CFG-PMS:
+  {
+    clsID: 6
+    msgID: 134
+    fields:
+    [
+      {
+        format: U1
+        name: version
+        doc: Message version (0x00 for this version)
+      }
+      {
+        format: U1
+        name: powerSetupValue
+        map:
+        {
+          0: Full power
+          1: Balanced
+          2: Interval
+          3: Aggressive with 1 Hz
+          4: Aggressive with 2 Hz
+          5: Aggressive with 4 Hz
+          255: Invalid (only when polling)
+        }
+        doc: Power setup value
+      }
+      {
+        format: U2
+        name: period
+        unit: s
+        doc:
+          '''
+
+                              Position update period and search period.
+                              Recommended minimum period is 10 s,
+                              although the receiver accepts any value
+                              bigger than 5 s.
+
+                              Only valid when powerSetupValue set to
+                              Interval, otherwise must be set to '0'.
+                          
+          '''
+      }
+      {
+        format: U2
+        name: onTime
+        unit: s
+        doc:
+          '''
+
+                              Duration of the ON phase, must be smaller
+                              than the period.
+                              Only valid when powerSetupValue set to
+                              Interval, otherwise must be set to '0'.
+                              Reserved
+                          
+          '''
+      }
+      {
+        format: U1[2]
+        name: reserved1
+      }
+    ]
+  }
+  MON-VER:
+  {
+    clsID: 10
+    msgID: 4
+    fields:
+    [
+      {
+        format: CH[30]
+        name: swVersion
+      }
+      {
+        format: CH[10]
+        name: hwVersion
+      }
+      {
+        format: CH[30]
+        name: extension
+        repeat: true
+      }
+    ]
+  }
+  NAV-PVT:
+  {
+    clsID: 1
+    msgID: 7
+    fields:
+    [
+      {
+        format: U4
+        name: iTOW
+        unit: ms
+        doc: '''"GPS time of week of the navigation epoch.'''
+      }
+      {
+        format: U2
+        name: year
+        unit: y
+        doc: Year (UTC),
+      }
+      {
+        format: U1
+        name: month
+        unit: month
+        doc: '''"Month, range 1..12 (UTC)",'''
+      }
+      {
+        format: U1
+        name: day
+        unit: d
+        doc: '''"Day of month, range 1..31 (UTC)",'''
+      }
+      {
+        format: U1
+        name: hour
+        unit: h
+        doc: '''"Hour of day, range 0..23 (UTC)",'''
+      }
+      {
+        format: U1
+        name: min
+        unit: min
+        doc: '''"Minute of hour, range 0..59 (UTC)",'''
+      }
+      {
+        format: U1
+        name: sec
+        unit: s
+        doc: '''"Seconds of minute, range 0..60 (UTC)", '''
+      }
+      {
+        format: X1
+        name: valid
+        doc: "-,Validity flags (see graphic below), "
+        bitfield: []
+      }
+      {
+        format: U4
+        name: tAcc
+        unit: ns
+        doc: "Time accuracy estimate (UTC), "
+      }
+      {
+        format: I4
+        name: nano
+        unit: ns
+        doc: '''"Fraction of second, range -1e9 .. 1e9 (UTC)", '''
+      }
+      {
+        format: U1
+        name: fixType
+        map:
+        {
+          0: no fix
+          1: dead reckoning only
+          2: 2D-fix
+          3: 3D-fix
+          4: GNSS + dead reckoning combined
+          5: time only fix",
+        }
+        doc: '''-,"GNSSfix Type: '''
+      }
+      {
+        format: X1
+        name: flags
+        doc: "-,Fix status flags (see graphic below,), "
+        bitfield: []
+      }
+      {
+        format: X1
+        name: flags2
+        doc: "-,Additional flags (see graphic below,), "
+        bitfield: []
+      }
+      {
+        format: U1
+        name: numSV
+        unit: -
+        doc: "Number of satellites used in Nav Solution "
+      }
+      {
+        format: I4
+        name: lon
+        unit: deg
+        doc: "Longitude "
+      }
+      {
+        format: I4
+        name: lat
+        unit: deg
+        doc: "Latitude "
+      }
+      {
+        format: I4
+        name: height
+        unit: mm
+        doc: "Height above ellipsoid "
+      }
+      {
+        format: I4
+        name: hMSL
+        unit: mm
+        doc: "Height above mean sea level "
+      }
+      {
+        format: U4
+        name: hAcc
+        unit: mm
+        doc: "Horizontal accuracy estimate "
+      }
+      {
+        format: U4
+        name: vAcc
+        unit: mm
+        doc: "Vertical accuracy estimate "
+      }
+      {
+        format: I4
+        name: velN
+        doc: "mm/s,NED north velocity "
+      }
+      {
+        format: I4
+        name: velE
+        doc: "mm/s,NED east velocity "
+      }
+      {
+        format: I4
+        name: velD
+        doc: "mm/s,NED down velocity "
+      }
+      {
+        format: I4
+        name: gSpeed
+        doc: "mm/s,Ground Speed (2-D) "
+      }
+      {
+        format: I4
+        name: headMot
+        unit: deg
+        doc: "Heading of motion (2-D,) "
+      }
+      {
+        format: U4
+        name: sAcc
+        doc: "mm/s,Speed accuracy estimate "
+      }
+      {
+        format: U4
+        name: headAcc
+        unit: deg
+        doc: '''"Heading accuracy estimate (both motion and vehicle)" '''
+      }
+      {
+        format: U2
+        name: pDOP
+        doc: "-,Position DOP "
+      }
+      {
+        format: X1
+        name: flags3
+        doc: "-,Additional flags (see graphic below) "
+        bitfield: []
+      }
+      {
+        format: U1[5]
+        name: reserved1
+        doc: "-,Reserved "
+      }
+      {
+        format: I4
+        name: headVeh
+        unit: deg
+        doc: '''"Heading of vehicle (2-D), this is only valid when headVehValid is set, otherwise the output is set to the heading of motion" '''
+      }
+      {
+        format: I2
+        name: magDec
+        unit: deg
+        doc: '''"Magnetic declination. Only supported in ADR 4.10 and later." '''
+      }
+      {
+        format: U2
+        name: magAcc
+        doc: '''1e-2,"Magnetic declination accuracy. Only supported in ADR 4.10 and later." '''
+      }
+    ]
+  }
+  NAV-POSLLH:
+  {
+    clsID: 1
+    msgID: 2
+    fields:
+    [
+      {
+        format: U4
+        name: iTOW
+        unit: ms
+        doc: GPS time of week of the navigation epoch. See the description of iTOW for details.
+      }
+      {
+        format: I4
+        name: lon
+        unit: deg
+        doc: Longitude
+      }
+      {
+        format: I4
+        name: lat
+        unit: deg
+        doc: Latitude
+      }
+      {
+        format: I4
+        name: height
+        unit: mm
+        doc: Height above ellipsoid
+      }
+      {
+        format: I4
+        name: hMSL
+        unit: mm
+        doc: Height above mean sea level
+      }
+      {
+        format: U4
+        name: hAcc
+        unit: mm
+        doc: Horizontal accuracy estimate
+      }
+      {
+        format: U4
+        name: vAcc
+        unit: mm
+        doc: Vertical accuracy estimate
+      }
+    ]
+  }
+  CFG-NAV5:
+  {
+    clsID: 6
+    msgID: 36
+    fields:
+    [
+      {
+        format: X2
+        name: mask
+        bitfield:
+        [
+          {
+            range: 0
+            name: dyn
+            doc: Apply dynamic model settings
+          }
+          {
+            range: 1
+            name: minEl
+            doc: Apply minimum elevation settings
+          }
+          {
+            range: 2
+            name: posFixMode
+            doc: Apply fix mode settings
+          }
+          {
+            range: 3
+            name: drLim
+            doc: Reserved
+          }
+          {
+            range: 4
+            name: posMask
+            doc: Apply position mask settings
+          }
+          {
+            range: 5
+            name: timeMask
+            doc: Apply time mask settings
+          }
+          {
+            range: 6
+            name: staticHoldMask
+            doc: Apply static hold settings
+          }
+          {
+            range: 7
+            name: dgpsMask
+            doc: Apply DGPS settings
+          }
+          {
+            range: 8
+            name: cnoThreshold
+            doc: Apply CNO threshold settings (cnoThresh, cnoThreshNumSVs)
+          }
+          {
+            range: 10
+            name: uct
+            doc: Apply UTC settings
+          }
+        ]
+      }
+      {
+        format: U1
+        name: dynModel
+        map:
+        {
+          0: portable
+          2: stationary
+          3: pedestrian
+          4: automotive
+          5: sea
+          6: airborne with <1g acceleration
+          7: airborne with <2g acceleration
+          8: airborne with <4g acceleration
+          9: wrist-worn watch (not supported in protocol versions less than 18)
+          10: bike (supported in protocol versions 19.)
+        }
+      }
+      {
+        format: U1
+        name: fixMode
+        map:
+        {
+          1: 2D only
+          2: 3D only
+          3: auto 2D/3D
+        }
+      }
+      {
+        format: I4
+        name: fixedAlt
+      }
+      {
+        format: U4
+        name: fixedAltVar
+      }
+      {
+        format: I1
+        name: minElev
+      }
+      {
+        format: U1
+        name: drLimit
+      }
+      {
+        format: U2
+        name: pDop
+      }
+      {
+        format: U2
+        name: tDop
+      }
+      {
+        format: U2
+        name: pAcc
+      }
+      {
+        format: U2
+        name: tAcc
+      }
+      {
+        format: U1
+        name: staticHoldThr
+      }
+      {
+        format: U1
+        name: dgnssTimeout
+      }
+      {
+        format: U1
+        name: cnoThreshNumS
+      }
+      {
+        format: U1
+        name: cnoThresh
+      }
+      {
+        format: U1[2]
+        name: reserved1
+      }
+      {
+        format: U2
+        name: staticHoldMax
+      }
+      {
+        format: U1
+        name: utcStandard
+        map:
+        {
+          0: Automatic; receiver selects based on; GNSS configuration (see GNSS time; bases)
+          3: UTC as operated by the U.S. Naval; Observatory (USNO); derived from GPS time
+          5: UTC as combined from multiple European laboratories; derived from Galileo time
+          6: UTC as operated by the former Soviet; Union (SU); derived from GLONASS time
+          7: UTC as operated by the National Time; Service Center (NTSC), China; derived from BeiDou time; (not supported in protocol versions less than 16).
+        }
+      }
+      {
+        format: U1[5]
+        name: reserved2
+      }
+    ]
+  }
+  CFG-PRT:
+  {
+    clsID: 6
+    msgID: 0
+    fields:
+    [
+      {
+        format: U1
+        name: portID
+        doc: Port identifier number (see Integration ,manual for valid UART port IDs)
+      }
+      {
+        format: U1
+        name: reserved1
+        doc: Reserved Byte Offset
+      }
+      {
+        format: X2
+        name: txReady
+        bitfield:
+        [
+          {
+            name: en
+            range: 0
+            doc: Enable TX ready feature for this port
+          }
+          {
+            name: pol
+            range: 1
+            doc: Polarity 0 High-active 1 Low-active
+          }
+          {
+            name: pin
+            range: 6
+            doc: PIO to be used (must not be in use by another function)
+          }
+          {
+            name: thres
+            range: 15
+            doc: Threshold The given threshold is multiplied by 8 bytes. The TX ready PIN goes active after >= thres*8 bytes are pending for the port and going inactive after the last pending bytes have been written to hardware (0-4 bytes before end of stream). 0x000 no threshold 0x001 8byte 0x002 16byte ... 0x1FE 4080byte 0x1FF 4088byte
+          }
+        ]
+        doc: TX ready PIN configuration (see graphic below)
+      }
+      {
+        format: X4
+        name: mode
+        bitfield:
+        [
+          {
+            name: charLen
+            range:
+            [
+              7
+              6
+            ]
+            map:
+            {
+              0: 5bit (not supported)
+              1: 6bit (not supported)
+              2: 7bit (supported only with parity)
+              3: 8bit
+            }
+            doc: Character length
+          }
+          {
+            name: parity
+            range:
+            [
+              11
+              9
+            ]
+            map:
+            {
+              000: Even parity
+              001: Odd parity
+              10X: No parity
+              X1X: Reserved
+            }
+          }
+          {
+            name: nStopBits
+            range:
+            [
+              13
+              12
+            ]
+            map:
+            {
+              00: 1 Stop bit
+              01: 1.5 Stop bit
+              10: 2 Stop bit
+              11: 0.5 Stop bit
+            }
+            doc: Number of Stop bits
+          }
+        ]
+        doc: A bit mask describing the UART mode (see graphic below)
+      }
+      {
+        format: U4
+        name: baudRate
+        doc: Bits/s,Baud rate in bits/second
+      }
+      {
+        format: X2
+        name: inProtoMask
+        bitfield:
+        [
+          {
+            name: inUbx
+            range: 0
+            doc: UBX protocol
+          }
+          {
+            name: inNmea
+            range: 1
+            doc: NMEA protocol
+          }
+          {
+            name: inRtcm
+            range: 2
+            doc: RTCM2 protocol
+          }
+          {
+            name: inRtcm3
+            range: 5
+            doc: RTCM3 protocol (not supported in protocol versions less than 20)
+          }
+        ]
+        doc: A mask describing which input protocols are active. Each bit of this mask is used for a protocol. Through that, multiple protocols can be defined on a single port. (see graphic below)
+      }
+      {
+        format: X2
+        name: outProtoMask
+        bitfield:
+        [
+          {
+            name: outUbx
+            range: 0
+            doc: UBX protocol
+          }
+          {
+            name: outNmea
+            range: 1
+            doc: NMEA protocol
+          }
+          {
+            name: inRtcm3
+            range: 5
+            doc: RTCM3 protocol (not supported in protocol versions less than 20)
+          }
+        ]
+        doc: A mask describing which output protocols are active. Each bit of this mask is used for a protocol. Through that, multiple protocols can be defined on a single port. (see graphic below)
+      }
+      {
+        format: X2
+        name: flags
+        bitfield:
+        [
+          {
+            name: extendedTxTimeout
+            range: 1
+          }
+        ]
+      }
+      {
+        format: U1[2]
+        name: reserved2
+      }
+    ]
+  }
+  CFG-TP5:
+  {
+    clsID: 6
+    msgID: 49
+    fields:
+    [
+      {
+        format: U1
+        name: tpIdx
+      }
+      {
+        format: U1
+        name: version
+      }
+      {
+        format: U1[2]
+        name: reserved1
+      }
+      {
+        format: I2
+        name: antCableDelay
+      }
+      {
+        format: I2
+        name: rfGroupDelay
+      }
+      {
+        format: U4
+        name: freqPeriod
+      }
+      {
+        format: U4
+        name: freqPeriodLock
+      }
+      {
+        format: U4
+        name: pulseLenRatio
+      }
+      {
+        format: U4
+        name: pulseLenRatioLock
+      }
+      {
+        format: I4
+        name: userConfigDel
+      }
+      {
+        format: X4
+        name: flags
+        bitfield:
+        [
+          {
+            name: active
+            range: 0
+          }
+          {
+            name: lockGpsFreq
+            range: 1
+          }
+          {
+            name: lockedOtherSet
+            range: 2
+          }
+          {
+            name: isFreq
+            range: 3
+          }
+          {
+            name: isLength
+            range: 4
+          }
+          {
+            name: alignToTow
+            range: 5
+          }
+          {
+            name: polarity
+            range: 6
+          }
+          {
+            name: gridUtcGps
+            range: 7
+          }
+        ]
+      }
+    ]
+  }
+  _EXAMPLE:
+  {
+    clsID: 153
+    msgID: 153
+    fields:
+    [
+      {
+        format: U1
+        name: portID
+        doc: ""
+      }
+      {
+        format: X2
+        name: outProtoMask
+        bitfield:
+        [
+          {
+            name: outUbx
+            range: 0
+            doc: ""
+          }
+        ]
+        doc: ""
+      }
+    ]
+  }
+}
