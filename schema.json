@@ -1,0 +1,787 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "ACK-ACK",
+        "ACK-NAK",
+        "NAV-SVINFO",
+        "CFG-RATE",
+        "CFG-MSG",
+        "CFG-CFG",
+        "CFG-RST"
+    ],
+    "properties": {
+        "ACK-ACK": {
+            "$id": "#/properties/ACK-ACK",
+            "type": "object",
+            "title": "The ACK-ACK schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "required": [
+                "clsID",
+                "msgID",
+                "fields"
+            ],
+            "properties": {
+                "clsID": {
+                    "$id": "#/properties/ACK-ACK/properties/clsID",
+                    "type": "integer",
+                    "title": "The clsID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "msgID": {
+                    "$id": "#/properties/ACK-ACK/properties/msgID",
+                    "type": "integer",
+                    "title": "The msgID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "fields": {
+                    "$id": "#/properties/ACK-ACK/properties/fields",
+                    "type": "array",
+                    "title": "The fields schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ACK-ACK/properties/fields/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/ACK-ACK/properties/fields/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/ACK-ACK/properties/fields/items/anyOf/0/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/ACK-ACK/properties/fields/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "ACK-NAK": {
+            "$id": "#/properties/ACK-NAK",
+            "type": "object",
+            "title": "The ACK-NAK schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "required": [
+                "clsID",
+                "msgID",
+                "fields"
+            ],
+            "properties": {
+                "clsID": {
+                    "$id": "#/properties/ACK-NAK/properties/clsID",
+                    "type": "integer",
+                    "title": "The clsID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "msgID": {
+                    "$id": "#/properties/ACK-NAK/properties/msgID",
+                    "type": "integer",
+                    "title": "The msgID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "fields": {
+                    "$id": "#/properties/ACK-NAK/properties/fields",
+                    "type": "array",
+                    "title": "The fields schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ACK-NAK/properties/fields/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/ACK-NAK/properties/fields/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/ACK-NAK/properties/fields/items/anyOf/0/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/ACK-NAK/properties/fields/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "NAV-SVINFO": {
+            "$id": "#/properties/NAV-SVINFO",
+            "type": "object",
+            "title": "The NAV-SVINFO schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "required": [
+                "clsID",
+                "msgID",
+                "fields"
+            ],
+            "properties": {
+                "clsID": {
+                    "$id": "#/properties/NAV-SVINFO/properties/clsID",
+                    "type": "integer",
+                    "title": "The clsID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "msgID": {
+                    "$id": "#/properties/NAV-SVINFO/properties/msgID",
+                    "type": "integer",
+                    "title": "The msgID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "fields": {
+                    "$id": "#/properties/NAV-SVINFO/properties/fields",
+                    "type": "array",
+                    "title": "The fields schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/NAV-SVINFO/properties/fields/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/0/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            {
+                                "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1",
+                                "type": "object",
+                                "title": "The second anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name",
+                                    "bitfield"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "bitfield": {
+                                        "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield",
+                                        "type": "array",
+                                        "title": "The bitfield schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": [],
+                                        "additionalItems": true,
+                                        "items": {
+                                            "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items",
+                                            "anyOf": [
+                                                {
+                                                    "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0",
+                                                    "type": "object",
+                                                    "title": "The first anyOf schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": {},
+                                                    "required": [
+                                                        "name",
+                                                        "range",
+                                                        "bitmap"
+                                                    ],
+                                                    "properties": {
+                                                        "name": {
+                                                            "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/name",
+                                                            "type": "string",
+                                                            "title": "The name schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": ""
+                                                        },
+                                                        "range": {
+                                                            "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/range",
+                                                            "type": "array",
+                                                            "title": "The range schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": [],
+                                                            "additionalItems": true,
+                                                            "items": {
+                                                                "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/range/items",
+                                                                "anyOf": [
+                                                                    {
+                                                                        "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/range/items/anyOf/0",
+                                                                        "type": "integer",
+                                                                        "title": "The first anyOf schema",
+                                                                        "description": "An explanation about the purpose of this instance.",
+                                                                        "default": 0
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        "bitmap": {
+                                                            "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/bitmap",
+                                                            "type": "object",
+                                                            "title": "The bitmap schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": {},
+                                                            "required": [
+                                                                "0",
+                                                                "1",
+                                                                "2",
+                                                                "3",
+                                                                "4"
+                                                            ],
+                                                            "properties": {
+                                                                "0": {
+                                                                    "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/bitmap/properties/0",
+                                                                    "type": "string",
+                                                                    "title": "The 0 schema",
+                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "default": ""
+                                                                },
+                                                                "1": {
+                                                                    "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/bitmap/properties/1",
+                                                                    "type": "string",
+                                                                    "title": "The 1 schema",
+                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "default": ""
+                                                                },
+                                                                "2": {
+                                                                    "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/bitmap/properties/2",
+                                                                    "type": "string",
+                                                                    "title": "The 2 schema",
+                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "default": ""
+                                                                },
+                                                                "3": {
+                                                                    "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/bitmap/properties/3",
+                                                                    "type": "string",
+                                                                    "title": "The 3 schema",
+                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "default": ""
+                                                                },
+                                                                "4": {
+                                                                    "$id": "#/properties/NAV-SVINFO/properties/fields/items/anyOf/1/properties/bitfield/items/anyOf/0/properties/bitmap/properties/4",
+                                                                    "type": "string",
+                                                                    "title": "The 4 schema",
+                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "default": ""
+                                                                }
+                                                            },
+                                                            "additionalProperties": true
+                                                        }
+                                                    },
+                                                    "additionalProperties": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "CFG-RATE": {
+            "$id": "#/properties/CFG-RATE",
+            "type": "object",
+            "title": "The CFG-RATE schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "required": [
+                "clsID",
+                "msgID",
+                "fields"
+            ],
+            "properties": {
+                "clsID": {
+                    "$id": "#/properties/CFG-RATE/properties/clsID",
+                    "type": "integer",
+                    "title": "The clsID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "msgID": {
+                    "$id": "#/properties/CFG-RATE/properties/msgID",
+                    "type": "integer",
+                    "title": "The msgID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "fields": {
+                    "$id": "#/properties/CFG-RATE/properties/fields",
+                    "type": "array",
+                    "title": "The fields schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/CFG-RATE/properties/fields/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/CFG-RATE/properties/fields/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/CFG-RATE/properties/fields/items/anyOf/0/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/CFG-RATE/properties/fields/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "CFG-MSG": {
+            "$id": "#/properties/CFG-MSG",
+            "type": "object",
+            "title": "The CFG-MSG schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "required": [
+                "clsID",
+                "msgID",
+                "fields"
+            ],
+            "properties": {
+                "clsID": {
+                    "$id": "#/properties/CFG-MSG/properties/clsID",
+                    "type": "integer",
+                    "title": "The clsID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "msgID": {
+                    "$id": "#/properties/CFG-MSG/properties/msgID",
+                    "type": "integer",
+                    "title": "The msgID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "fields": {
+                    "$id": "#/properties/CFG-MSG/properties/fields",
+                    "type": "array",
+                    "title": "The fields schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/CFG-MSG/properties/fields/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/CFG-MSG/properties/fields/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/CFG-MSG/properties/fields/items/anyOf/0/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/CFG-MSG/properties/fields/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "CFG-CFG": {
+            "$id": "#/properties/CFG-CFG",
+            "type": "object",
+            "title": "The CFG-CFG schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "required": [
+                "clsID",
+                "msgID",
+                "fields"
+            ],
+            "properties": {
+                "clsID": {
+                    "$id": "#/properties/CFG-CFG/properties/clsID",
+                    "type": "integer",
+                    "title": "The clsID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "msgID": {
+                    "$id": "#/properties/CFG-CFG/properties/msgID",
+                    "type": "integer",
+                    "title": "The msgID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "fields": {
+                    "$id": "#/properties/CFG-CFG/properties/fields",
+                    "type": "array",
+                    "title": "The fields schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/CFG-CFG/properties/fields/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name",
+                                    "bitfield"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "bitfield": {
+                                        "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0/properties/bitfield",
+                                        "type": "array",
+                                        "title": "The bitfield schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": [],
+                                        "additionalItems": true,
+                                        "items": {
+                                            "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0/properties/bitfield/items",
+                                            "anyOf": [
+                                                {
+                                                    "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0",
+                                                    "type": "object",
+                                                    "title": "The first anyOf schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": {},
+                                                    "required": [
+                                                        "name",
+                                                        "range"
+                                                    ],
+                                                    "properties": {
+                                                        "name": {
+                                                            "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0/properties/name",
+                                                            "type": "string",
+                                                            "title": "The name schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": ""
+                                                        },
+                                                        "range": {
+                                                            "$id": "#/properties/CFG-CFG/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0/properties/range",
+                                                            "type": "integer",
+                                                            "title": "The range schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": 0
+                                                        }
+                                                    },
+                                                    "additionalProperties": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "CFG-RST": {
+            "$id": "#/properties/CFG-RST",
+            "type": "object",
+            "title": "The CFG-RST schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "required": [
+                "clsID",
+                "msgID",
+                "fields"
+            ],
+            "properties": {
+                "clsID": {
+                    "$id": "#/properties/CFG-RST/properties/clsID",
+                    "type": "integer",
+                    "title": "The clsID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "msgID": {
+                    "$id": "#/properties/CFG-RST/properties/msgID",
+                    "type": "integer",
+                    "title": "The msgID schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0
+                },
+                "fields": {
+                    "$id": "#/properties/CFG-RST/properties/fields",
+                    "type": "array",
+                    "title": "The fields schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/CFG-RST/properties/fields/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name",
+                                    "bitfield"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "bitfield": {
+                                        "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield",
+                                        "type": "array",
+                                        "title": "The bitfield schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": [],
+                                        "additionalItems": true,
+                                        "items": {
+                                            "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield/items",
+                                            "anyOf": [
+                                                {
+                                                    "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0",
+                                                    "type": "object",
+                                                    "title": "The first anyOf schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": {},
+                                                    "required": [
+                                                        "name",
+                                                        "range",
+                                                        "bitmap"
+                                                    ],
+                                                    "properties": {
+                                                        "name": {
+                                                            "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0/properties/name",
+                                                            "type": "string",
+                                                            "title": "The name schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": ""
+                                                        },
+                                                        "range": {
+                                                            "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0/properties/range",
+                                                            "type": "integer",
+                                                            "title": "The range schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": 0
+                                                        },
+                                                        "bitmap": {
+                                                            "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0/properties/bitmap",
+                                                            "type": "object",
+                                                            "title": "The bitmap schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": {},
+                                                            "required": [
+                                                                "0",
+                                                                "1"
+                                                            ],
+                                                            "properties": {
+                                                                "0": {
+                                                                    "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0/properties/bitmap/properties/0",
+                                                                    "type": "string",
+                                                                    "title": "The 0 schema",
+                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "default": ""
+                                                                },
+                                                                "1": {
+                                                                    "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/0/properties/bitfield/items/anyOf/0/properties/bitmap/properties/1",
+                                                                    "type": "string",
+                                                                    "title": "The 1 schema",
+                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "default": ""
+                                                                }
+                                                            },
+                                                            "additionalProperties": true
+                                                        }
+                                                    },
+                                                    "additionalProperties": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            {
+                                "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/1",
+                                "type": "object",
+                                "title": "The second anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "format",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "format": {
+                                        "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/1/properties/format",
+                                        "type": "string",
+                                        "title": "The format schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    },
+                                    "name": {
+                                        "$id": "#/properties/CFG-RST/properties/fields/items/anyOf/1/properties/name",
+                                        "type": "string",
+                                        "title": "The name schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": ""
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}

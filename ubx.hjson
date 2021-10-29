@@ -294,6 +294,7 @@
   {
     clsID: 6
     msgID: 4
+    skip_response: true
     fields:
     [
       {
@@ -402,7 +403,6 @@
         name: reserved1
       }
     ]
-    skip_response: true
   }
   CFG-NMEA:
   {
@@ -480,6 +480,7 @@
       {
         format: U1
         name: powerSetupValue
+        doc: Power setup value
         map:
         {
           0: Full power
@@ -490,7 +491,6 @@
           5: Aggressive with 4 Hz
           255: Invalid (only when polling)
         }
-        doc: Power setup value
       }
       {
         format: U2
@@ -498,15 +498,14 @@
         unit: s
         doc:
           '''
+          Position update period and search period.
+          Recommended minimum period is 10 s,
+          although the receiver accepts any value
+          bigger than 5 s.
 
-                              Position update period and search period.
-                              Recommended minimum period is 10 s,
-                              although the receiver accepts any value
-                              bigger than 5 s.
+          Only valid when powerSetupValue set to
+          Interval, otherwise must be set to '0'.
 
-                              Only valid when powerSetupValue set to
-                              Interval, otherwise must be set to '0'.
-                          
           '''
       }
       {
@@ -515,13 +514,12 @@
         unit: s
         doc:
           '''
+          Duration of the ON phase, must be smaller
+          than the period.
+          Only valid when powerSetupValue set to
+          Interval, otherwise must be set to '0'.
+          Reserved
 
-                              Duration of the ON phase, must be smaller
-                              than the period.
-                              Only valid when powerSetupValue set to
-                              Interval, otherwise must be set to '0'.
-                              Reserved
-                          
           '''
       }
       {
@@ -561,65 +559,66 @@
         format: U4
         name: iTOW
         unit: ms
-        doc: '''"GPS time of week of the navigation epoch.'''
+        doc: GPS time of week of the navigation epoch.
       }
       {
         format: U2
         name: year
         unit: y
-        doc: Year (UTC),
+        doc: Year (UTC)
       }
       {
         format: U1
         name: month
         unit: month
-        doc: '''"Month, range 1..12 (UTC)",'''
+        doc: Month, range 1..12 (UTC)
       }
       {
         format: U1
         name: day
         unit: d
-        doc: '''"Day of month, range 1..31 (UTC)",'''
+        doc: Day of month, range 1..31 (UTC)
       }
       {
         format: U1
         name: hour
         unit: h
-        doc: '''"Hour of day, range 0..23 (UTC)",'''
+        doc: Hour of day, range 0..23 (UTC)
       }
       {
         format: U1
         name: min
         unit: min
-        doc: '''"Minute of hour, range 0..59 (UTC)",'''
+        doc: Minute of hour, range 0..59 (UTC)
       }
       {
         format: U1
         name: sec
         unit: s
-        doc: '''"Seconds of minute, range 0..60 (UTC)", '''
+        doc: Seconds of minute, range 0..60 (UTC)
       }
       {
         format: X1
         name: valid
-        doc: "-,Validity flags (see graphic below), "
+        doc: -,Validity flags (see graphic below)
         bitfield: []
       }
       {
         format: U4
         name: tAcc
         unit: ns
-        doc: "Time accuracy estimate (UTC), "
+        doc: Time accuracy estimate (UTC)
       }
       {
         format: I4
         name: nano
         unit: ns
-        doc: '''"Fraction of second, range -1e9 .. 1e9 (UTC)", '''
+        doc: Fraction of second, range -1e9 .. 1e9 (UTC)
       }
       {
         format: U1
         name: fixType
+        doc: -,GNSSfix Type:
         map:
         {
           0: no fix
@@ -627,133 +626,137 @@
           2: 2D-fix
           3: 3D-fix
           4: GNSS + dead reckoning combined
-          5: time only fix",
+          5: time only fix
         }
-        doc: '''-,"GNSSfix Type: '''
       }
       {
         format: X1
         name: flags
-        doc: "-,Fix status flags (see graphic below,), "
+        doc: -,Fix status flags (see graphic below)
         bitfield: []
       }
       {
         format: X1
         name: flags2
-        doc: "-,Additional flags (see graphic below,), "
+        doc: -,Additional flags (see graphic below)
         bitfield: []
       }
       {
         format: U1
         name: numSV
         unit: -
-        doc: "Number of satellites used in Nav Solution "
+        doc: Number of satellites used in Nav Solution
       }
       {
         format: I4
         name: lon
         unit: deg
-        doc: "Longitude "
+        doc: Longitude
       }
       {
         format: I4
         name: lat
         unit: deg
-        doc: "Latitude "
+        doc: Latitude
       }
       {
         format: I4
         name: height
         unit: mm
-        doc: "Height above ellipsoid "
+        doc: Height above ellipsoid
       }
       {
         format: I4
         name: hMSL
         unit: mm
-        doc: "Height above mean sea level "
+        doc: Height above mean sea level
       }
       {
         format: U4
         name: hAcc
         unit: mm
-        doc: "Horizontal accuracy estimate "
+        doc: Horizontal accuracy estimate
       }
       {
         format: U4
         name: vAcc
         unit: mm
-        doc: "Vertical accuracy estimate "
+        doc: Vertical accuracy estimate
       }
       {
         format: I4
         name: velN
-        doc: "mm/s,NED north velocity "
+        doc: mm/s,NED north velocity
       }
       {
         format: I4
         name: velE
-        doc: "mm/s,NED east velocity "
+        doc: mm/s,NED east velocity
       }
       {
         format: I4
         name: velD
-        doc: "mm/s,NED down velocity "
+        doc: mm/s,NED down velocity
       }
       {
         format: I4
         name: gSpeed
-        doc: "mm/s,Ground Speed (2-D) "
+        doc: mm/s,Ground Speed (2-D)
       }
       {
         format: I4
         name: headMot
         unit: deg
-        doc: "Heading of motion (2-D,) "
+        doc: Heading of motion (2-D,)
       }
       {
         format: U4
         name: sAcc
-        doc: "mm/s,Speed accuracy estimate "
+        doc: mm/s,Speed accuracy estimate
       }
       {
         format: U4
         name: headAcc
         unit: deg
-        doc: '''"Heading accuracy estimate (both motion and vehicle)" '''
+        doc: Heading accuracy estimate (both motion and vehicle)
       }
       {
         format: U2
         name: pDOP
-        doc: "-,Position DOP "
+        doc: -,Position DOP
       }
       {
         format: X1
         name: flags3
-        doc: "-,Additional flags (see graphic below) "
+        doc: -,Additional flags (see graphic below)
         bitfield: []
       }
       {
         format: U1[5]
         name: reserved1
-        doc: "-,Reserved "
+        doc: -,Reserved
       }
       {
         format: I4
         name: headVeh
         unit: deg
-        doc: '''"Heading of vehicle (2-D), this is only valid when headVehValid is set, otherwise the output is set to the heading of motion" '''
+        doc:
+          '''
+          Heading of vehicle (2-D), this is only valid when headVehValid is set,
+          otherwise the output is set to the heading of motion
+
+          '''
       }
       {
         format: I2
         name: magDec
         unit: deg
-        doc: '''"Magnetic declination. Only supported in ADR 4.10 and later." '''
+        doc: Magnetic declination. Only supported in ADR 4.10 and later.
       }
       {
         format: U2
         name: magAcc
-        doc: '''1e-2,"Magnetic declination accuracy. Only supported in ADR 4.10 and later." '''
+        doc: "1e-2,Magnetic declination accuracy. Only supported in ADR 4.10 and later."
       }
     ]
   }
@@ -990,6 +993,7 @@
       {
         format: X2
         name: txReady
+        doc: TX ready PIN configuration (see graphic below)
         bitfield:
         [
           {
@@ -1013,11 +1017,11 @@
             doc: Threshold The given threshold is multiplied by 8 bytes. The TX ready PIN goes active after >= thres*8 bytes are pending for the port and going inactive after the last pending bytes have been written to hardware (0-4 bytes before end of stream). 0x000 no threshold 0x001 8byte 0x002 16byte ... 0x1FE 4080byte 0x1FF 4088byte
           }
         ]
-        doc: TX ready PIN configuration (see graphic below)
       }
       {
         format: X4
         name: mode
+        doc: A bit mask describing the UART mode (see graphic below)
         bitfield:
         [
           {
@@ -1027,6 +1031,7 @@
               7
               6
             ]
+            doc: Character length
             map:
             {
               0: 5bit (not supported)
@@ -1034,7 +1039,6 @@
               2: 7bit (supported only with parity)
               3: 8bit
             }
-            doc: Character length
           }
           {
             name: parity
@@ -1058,6 +1062,7 @@
               13
               12
             ]
+            doc: Number of Stop bits
             map:
             {
               00: 1 Stop bit
@@ -1065,10 +1070,8 @@
               10: 2 Stop bit
               11: 0.5 Stop bit
             }
-            doc: Number of Stop bits
           }
         ]
-        doc: A bit mask describing the UART mode (see graphic below)
       }
       {
         format: U4
@@ -1078,6 +1081,14 @@
       {
         format: X2
         name: inProtoMask
+        doc:
+          '''
+          A mask describing which input protocols are active.
+          Each bit of this mask is used for a protocol.
+          Through that, multiple protocols can be defined on a single port.
+          (see graphic below)
+
+          '''
         bitfield:
         [
           {
@@ -1101,11 +1112,18 @@
             doc: RTCM3 protocol (not supported in protocol versions less than 20)
           }
         ]
-        doc: A mask describing which input protocols are active. Each bit of this mask is used for a protocol. Through that, multiple protocols can be defined on a single port. (see graphic below)
       }
       {
         format: X2
         name: outProtoMask
+        doc:
+          '''
+          A mask describing which output protocols are active.
+          Each bit of this mask is used for a protocol.
+          Through that, multiple protocols can be defined on a single port.
+          (see graphic below)
+
+          '''
         bitfield:
         [
           {
@@ -1124,7 +1142,6 @@
             doc: RTCM3 protocol (not supported in protocol versions less than 20)
           }
         ]
-        doc: A mask describing which output protocols are active. Each bit of this mask is used for a protocol. Through that, multiple protocols can be defined on a single port. (see graphic below)
       }
       {
         format: X2
@@ -1244,6 +1261,7 @@
       {
         format: X2
         name: outProtoMask
+        doc: ""
         bitfield:
         [
           {
@@ -1252,7 +1270,6 @@
             doc: ""
           }
         ]
-        doc: ""
       }
     ]
   }

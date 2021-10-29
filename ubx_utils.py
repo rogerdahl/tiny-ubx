@@ -74,7 +74,7 @@ log = logging.getLogger(__name__)
 class UbxUtils:
     def __init__(
         self,
-        device_path="/dev/ttyUSB0",
+        device_path="/dev/ttyUSB3",
         baud_rate=9600,
         tx_device_path=None,
         tx_baud_rate=None,
@@ -159,29 +159,29 @@ class UbxUtils:
             deviceDevEeprom=1,  # device EEPROM
             deviceDeviceSpiFlash=1,  # device SPI Flash
         )
-        self._ubx.send(
-            "CFG-CFG",
-            clearMask=0xFFFF,
-            saveMask=0xFFFF,
-            loadMask=0xFFFF,
-            deviceMask=device_mask_dict,
-        )
         # self._ubx.send(
         #     "CFG-CFG",
         #     clearMask=0xFFFF,
-        #     saveMask=0x0000,
+        #     saveMask=0xFFFF,
         #     loadMask=0xFFFF,
         #     deviceMask=device_mask_dict,
         # )
-        # self._ubx.send(
-        #     "CFG-CFG",
-        #     clearMask=0x0000,
-        #     saveMask=dict(
-        #         msgConf=1,
-        #     ),
-        #     loadMask=dict(),
-        #     deviceMask=device_mask_dict,
-        # )
+        self._ubx.send(
+            "CFG-CFG",
+            clearMask=0xFFFF,
+            saveMask=0x0000,
+            loadMask=0xFFFF,
+            deviceMask=device_mask_dict,
+        )
+        self._ubx.send(
+            "CFG-CFG",
+            clearMask=0x0000,
+            saveMask=dict(
+                msgConf=1,
+            ),
+            loadMask=dict(),
+            deviceMask=device_mask_dict,
+        )
 
     def save_settings(self):
         self._log_msg_start("Save the current settings to flash")
@@ -336,10 +336,17 @@ class UbxUtils:
             ),
         )
 
-    # CFG-NAV
+    # CFG-NAV5
 
     def nav5(self, **arg_dict):
-        return self._ubx.poll("CFG-NAV5", **arg_dict)
+        return self._ubx.send("CFG-NAV5", **arg_dict)
+
+    # CFG-TP5
+
+    def brief_led_flash(self):
+        """Set PPS LED to flash very briefly to save battery"""
+        self._ubx.send('CFG-TP5', pulseLenRatioLock=990000)
+
 
     # Misc
 

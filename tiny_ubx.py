@@ -11,7 +11,8 @@ import binascii
 import sys
 import time
 
-import hjson as hjson
+# import hjson as hjson
+import toml
 
 UBX_SYNC_BYTES = bytes([0xB5, 0x62])
 
@@ -70,10 +71,10 @@ class TinyUbx:
         self,
         rx_stream,
         tx_stream,
-        ubx_json_path="./ubx.hjson",
+        ubx_protocol_path="./ubx.toml",
         timeout_sec=5.0,
     ):
-        self._ubx_dict = self._load_json(ubx_json_path)
+        self._ubx_dict = self._load_ubx_protocol(ubx_protocol_path)
         self._rx = rx_stream
         self._tx = tx_stream
         self._timeout_sec = timeout_sec
@@ -103,7 +104,6 @@ class TinyUbx:
 
         self.send(msg_name, **current_dict)
 
-
     def send(self, msg_name, **arg_dict):
         """Create a UBX message, write it to the tx_stream and read the response from
         the rx_stream.
@@ -111,7 +111,7 @@ class TinyUbx:
         Args:
             msg_name (str):
                 The name of the message to send. Must match one of the frame names in the
-                ubx.json file.
+                ubx-protocol.toml file.
 
             arg_dict (dict):
                 User provided values for fields and/or bitfield in the frame. May be
@@ -145,9 +145,7 @@ class TinyUbx:
         # self._dump_dict("Sending message", frame_dict)
         # log.debug(pprint.pformat(frame_dict))
         self._write("sync", UBX_SYNC_BYTES)
-        self._write(
-            "clsID, msgID", struct.pack("BB", frame_dict["clsID"], frame_dict["msgID"])
-        )
+        self._write("clsID, msgID", struct.pack("BB", frame_dict["clsID"], frame_dict["msgID"]))
         payload_bytes = self._pack_payload(frame_dict, arg_dict)
         len_bytes = struct.pack("<H", len(payload_bytes))
         self._write("payload_length", len_bytes)
@@ -160,12 +158,13 @@ class TinyUbx:
         )
         return self._get_message_response(frame_dict)
 
-
     # Private
 
-    def _load_json(self, ubx_path):
-        log.debug(f"Loading UBX protocol JSON: {ubx_path}")
-        ubx_dict = hjson.load(pathlib.Path(ubx_path).open("rt"))
+    def _load_ubx_protocol(self, ubx_path):
+        log.debug(f"Loading UBX protocol: {ubx_path}")
+        # ubx_dict = hjson.load(pathlib.Path(ubx_path).open("rt"))
+        with pathlib.Path(ubx_path).open("rt") as f:
+            ubx_dict = toml.load(f)
 
         for msg_name, frame_dict in ubx_dict.items():
             exp_field_list = []
@@ -177,9 +176,7 @@ class TinyUbx:
                     raise UBXError('Invalid field format string: "{}"')
                 fmt_str, repeat_count = m.groups()
                 if fmt_str not in UBX_TO_STRUCT_FORMAT_DICT:
-                    raise UBXError(
-                        f'Invalid format string "{fmt_str}" in field "{field_name}"'
-                    )
+                    raise UBXError(f'Invalid format string "{fmt_str}" in field "{field_name}"')
                 if repeat_count:
                     for i in range(int(repeat_count)):
                         field_dict["format"] = fmt_str
@@ -188,6 +185,7 @@ class TinyUbx:
                 else:
                     exp_field_list.append(field_dict)
             frame_dict["fields"] = exp_field_list
+
         return ubx_dict
 
     def _get_message_response(self, frame_dict=None):
@@ -198,15 +196,13 @@ class TinyUbx:
         - GET/POLL (is there a difference..?): A complete message with
             HEADER id_tup matching frame_dict's header id_tup
 
-        Note that they had to move the id_tup into the body for ACK and NAK because
-        otherwise, they'd break the clean mapping from id_tup to specific message
+        Note that, for ACK and NAK, id_tup is in the body of the message. Presumably,
+        this is to avoid breaking the clean mapping from id_tup to specific message
         structure.
         """
         if frame_dict:
             if frame_dict.get("skip_response", False):
-                log.debug(
-                    f'"{frame_dict["msg_name"]}" is not expected to return a response'
-                )
+                log.debug(f'"{frame_dict["msg_name"]}" is not expected to return a response')
                 return
 
             log.debug(
@@ -218,19 +214,21 @@ class TinyUbx:
         result_payload_dict = None
 
         while True:
-            log.debug(f"Response time: {time.time() - start_ts:.02f}")
+            log.debug(f"Response time: {time.time() - start_ts:.02f} sec")
 
             if time.time() - start_ts > self._timeout_sec:
-                raise UBXError("Timeout while waiting for response")
+                raise UBXError(
+                    f"Timeout while waiting for response. Waited: {time.time() - start_ts:.02f} sec"
+                )
 
             # Temporary hack for returning result even if ACK does not follow.
             # TODO: Read up on the flow for poll messages.
-            # try:
-            cls_id, msg_id, payload_bytes = self.read_next_ubx()
-            # except UBXError as e:
-            #     log.debug(str(e))
-            # self._dump_dict(f"Returned payload", result_payload_dict)
-            # return result_payload_dict
+            try:
+                cls_id, msg_id, payload_bytes = self.read_next_ubx()
+            except UBXError as e:
+                log.debug(str(e))
+                self._dump_dict(f"Returned payload", result_payload_dict)
+                return result_payload_dict
 
             try:
                 payload_dict = self._unpack_payload_by_id(cls_id, msg_id, payload_bytes)
@@ -258,17 +256,18 @@ class TinyUbx:
                     log.debug(f"Still waiting for response to {exp_id_str}")
                     continue
 
-                msg_str = f"{exp_id_str} returned {ack_str}"
                 if not is_ack:
-                    raise UBXError(msg_str)
-                #
-                # if result_payload_dict is None:
-                log.debug(f"{exp_id_str} returned {ack_str}")
+                    raise UBXError(f"{exp_id_str} returned {ack_str}")
+
+                if result_payload_dict is None:
+                    log.debug(f"{exp_id_str} returned {ack_str}")
+
+
                 return
+
+
                 # else:
-                #     self._dump_dict(
-                #         f"{exp_id_str} returned payload", result_payload_dict
-                #     )
+                #     self._dump_dict(f"{exp_id_str} returned payload", result_payload_dict)
                 #     return result_payload_dict
 
             else:
@@ -284,25 +283,49 @@ class TinyUbx:
 
     def _read_to_sync(self):
         """Read and discard bytes until the two sync bytes have been received."""
-        log.debug("Waiting for sync bytes...")
+        log.debug(
+            f"Waiting up to timeout {self._timeout_sec:.2f} sec for sync bytes "
+            f"({self._to_hex(UBX_SYNC_BYTES)})"
+        )
         start_ts = time.time()
         cur_list = [0, 0]
         while True:
-            if time.time() - start_ts > self._timeout_sec:
-                raise UBXError("Timeout while waiting for sync bytes")
+            elapsed_ts = time.time() - start_ts
+            if elapsed_ts > self._timeout_sec:
+                raise UBXError(
+                    f"Timeout while waiting for sync bytes: " f"Waited: {elapsed_ts:.2f} sec"
+                )
             if not self._rx.in_waiting:
                 time.sleep(0.1)
                 continue
             b = self._rx.read(1)
+            elapsed_ts = time.time() - start_ts
             if not b:
-                raise UBXError("Timeout while waiting for sync bytes")
+                raise UBXError(
+                    f"Timeout while waiting for sync bytes: " f"Waited: {elapsed_ts:.2f} sec"
+                )
+
+            # print(self._to_hex(b))
+            #
+            # sys.stdout.write(b.hex())
+            # sys.stdout.write('.')
+            # print()
+
+            # if b == b'\n':
+            #     sys.stdout.write('\n')
+
             # sys.stdout.write(b.decode("ascii", errors="replace"))
+
             # We call struct.unpack() directly here to avoid lots of single byte log records.
             cur_list.append(struct.unpack("B", b)[0])
             cur_list = cur_list[1:]
+
+            # print(self._to_hex(bytes(cur_list)))
+
             if cur_list == list(UBX_SYNC_BYTES):
                 break
-        log.debug(f"Sync found after {time.time() - start_ts:.2f} sec")
+
+        log.debug(f"Sync found after {elapsed_ts :.2f} sec")
 
     def _write(self, section_str, b):
         log.debug(f"< {self._fmt_bytes(b, section_str)}")
@@ -402,7 +425,7 @@ class TinyUbx:
                 f"{self._to_dot_list(arg_dict)}"
             )
 
-        log.debug(f"Packing: {self._fmt_list(value_tup)}")
+        log.debug(f"Packing value list: {self._fmt_list(value_tup)}")
 
         try:
             return struct.pack(struct_str, *value_tup)
@@ -471,25 +494,28 @@ class TinyUbx:
 
     def _unpack_payload(self, frame_dict, payload_bytes):
         struct_str = self._get_struct_str(frame_dict["fields"])
-        # payload_bytes = self._adjust_payload_for_known_fields(struct_str, payload_bytes)
         value_list = self._unpack(struct_str, payload_bytes)
         payload_dict = {}
         for field_value, field_dict in zip(value_list, frame_dict["fields"]):
             if self._is_bitfield(field_dict):
                 field_value = self._unpack_bitfield(field_dict["bitfield"], field_value)
             else:
-                field_value = field_dict.get("map", {}).get(
-                    str(field_value), field_value
-                )
+                field_value = field_dict.get("map", {}).get(str(field_value), field_value)
             payload_dict[field_dict["name"]] = field_value
         self._dump_dict("Unpacked payload", payload_dict)
         return payload_dict
 
     def _unpack(self, struct_str, payload_bytes):
-        # b = self._adjust_payload_for_known_fields(struct_str, payload_bytes)
+        struct_len = struct.calcsize(struct_str)
+        if struct_len < len(payload_bytes):
+            log.debug(
+                f'Ignoring last {len(payload_bytes) - struct_len} bytes of payload '
+                f'(incomplete or outdated protocol spec?)')
+            payload_bytes = payload_bytes[:struct_len]
+
         try:
             value_list = struct.unpack(struct_str, payload_bytes)
-            log.debug(f"Unpacked: {self._fmt_list(value_list)}")
+            log.debug(f"Unpacked value list: {self._fmt_list(value_list)}")
             return value_list
         except struct.error as e:
             raise UBXError(
@@ -540,8 +566,7 @@ class TinyUbx:
                 return frame_dict
 
         raise UBXError(
-            f"Unknown or unsupported message type: "
-            f"clsID={cls_id:02x} msgID={msg_id:02x}. "
+            f"Unknown or unsupported message type: " f"clsID={cls_id:02x} msgID={msg_id:02x}. "
         )
 
     def _get_struct_str(self, fields):
@@ -575,9 +600,7 @@ class TinyUbx:
                     max_value = 1 << (msb_int + 1 - lsb_int)
                     arg_type = f"0 - {max_value - 1}"
                     bf_map = sub_dict.get("map", {0: "0", 1: "1"})
-                    arg_type += " ({})".format(
-                        ", ".join(f"{k}={v}" for (k, v) in bf_map.items())
-                    )
+                    arg_type += " ({})".format(", ".join(f"{k}={v}" for (k, v) in bf_map.items()))
                     name_list.append((name, arg_type))
 
         log.info(f'Arguments for {frame_dict["msg_name"]}:')
@@ -594,11 +617,12 @@ class TinyUbx:
         )
 
     def _fmt_list(self, v_list, max_len=32):
-        return (
-            f'{", ".join(hex(v) if isinstance(v, int) else v for v in v_list[:max_len])} '
-            f'{"... " if len(v_list) > max_len else ""}'
-            f"({len(v_list)} items)"
-        )
+        return str(v_list)
+        # return (
+        #     f'{", ".join(hex(v) if isinstance(v, int) else v for v in v_list[:max_len])} '
+        #     f'{"... " if len(v_list) > max_len else ""}'
+        #     f"({len(v_list)} items)"
+        # )
 
     def _to_bytes(self, hex_str):
         return binascii.unhexlify(hex_str.replace(" ", ""))
